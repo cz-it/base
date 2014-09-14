@@ -23,8 +23,9 @@ define mkdirs
 endef
 
 
-.DEFAULT　all
+.DEFAULT :　all
 all:main
+	@echo "[BUILD　MAIN]:"	
 	
 main: dirs $(OBJS)
         $(CC) $(LINKFLAGS) $(OBJS) -o $@ 
@@ -40,7 +41,7 @@ dirs:
         -if (test -d $(OBJ_DIR)) ; then pwd ; else mkdir -p $(OBJ_DIR); fi
         -if (test -d $(DIST_DIR)) ; then pwd ; else mkdir -p $(DIST_DIR); fi
 
-.PHONY clean
+.PHONY : clean
 clean:
         -rm *.o $(OBJ_DIR)/* -rf
         -rm server -rf
