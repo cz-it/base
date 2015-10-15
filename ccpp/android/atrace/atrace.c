@@ -46,6 +46,10 @@ typedef struct backtrace_info_t
 
 static _Unwind_Reason_Code unwind_callback(struct _Unwind_Context* context, void* arg)
 {
+    if (NULL==context || NULL==arg) {
+
+        return _URC_NO_REASON;
+    }
 	backtrace_info *info = (backtrace_info *) arg;
 	_Unwind_Word pc = _Unwind_GetIP(context);
     if (pc) {
@@ -60,6 +64,9 @@ static _Unwind_Reason_Code unwind_callback(struct _Unwind_Context* context, void
 
 static size_t capture_backtrace(void** buffer, size_t max)
 {
+    if (NULL== buffer || max <0) {
+        return 0;
+    }
 	backtrace_info info = {buffer, buffer + max};
     _Unwind_Backtrace(unwind_callback, &info);
 
