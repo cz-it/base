@@ -122,7 +122,7 @@ void atrace()
 #endif
 }
 
-int traceinfo(char *buf, int *len) 
+int atraceinfo(char *buf, int *len) 
 {
 	if (NULL == buf || NULL == len || *len < 0) {
 		return -1;

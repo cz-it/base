@@ -42,7 +42,7 @@ extern void atrace();
 * @return: 0 on success and effectiv lenght in len
 */
 
-extern int traceinfo(char *buf, int *len);
+extern int atraceinfo(char *buf, int *len);
 
 #ifdef __cplusplus
 }
