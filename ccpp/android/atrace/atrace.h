@@ -32,7 +32,7 @@ extern "C" {
 /**
 * Print Invoke trace info .
 */
-extern void ptrace();
+extern void atrace();
 
 #ifdef __cplusplus
 }
