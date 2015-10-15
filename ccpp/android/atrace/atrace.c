@@ -115,3 +115,18 @@ void atrace()
     __android_log_print(ANDROID_LOG_INFO, "CZ_TRACXE", "CZ_TRACE:%s", destBuf);
 #endif
 }
+
+int traceinfo(char *buf, int *len) 
+{
+	if (NULL == buf || NULL == len || *len < 0) {
+		return -1;
+	}
+#ifdef __ANDROID__
+    size_t max = 30;
+    void* buffer[max];
+    memset(buf, 0, *len);
+    dump_backtrace(buf, len, buffer, capture_backtrace(buffer, max));
+    return 0;
+#endif
+	return -1;
+}
