@@ -33,6 +33,7 @@
 #include <android/log.h>
 #include <jni.h>
 #endif
+
 #include "atrace.h"
 
 #ifdef __ANDROID__
@@ -57,8 +58,6 @@ static _Unwind_Reason_Code unwind_callback(struct _Unwind_Context* context, void
     return _URC_NO_REASON;
 }
 
-
-
 static size_t capture_backtrace(void** buffer, size_t max)
 {
 	backtrace_info info = {buffer, buffer + max};
@@ -72,11 +71,11 @@ static void dump_backtrace(char *destBuf, size_t *destLen, void** buffer, size_t
 	if (NULL==destBuf || NULL==destLen || destLen <=0 || NULL==buffer || count <=0 ) {
 		return ;
 	}
-
+	size_t idx;
 	size_t desSize = *destLen;
 	int tail = 0;
 
-    for (size_t idx = 2; idx < count; ++idx) {
+    for (idx = 1; idx < count; ++idx) {
         const void *addr = buffer[idx];
         const char *symbol = "";
 
@@ -89,7 +88,7 @@ static void dump_backtrace(char *destBuf, size_t *destLen, void** buffer, size_t
         if (desSize - tail <=0) {
         	return ;
         }
-        int rst = snprintf(destBuf+tail, desSize-tail, "    #%10d:0x%x    %s \n", idx, *(_Unwind_Word *)addr, symbol);
+        int rst = snprintf(destBuf+tail, desSize-tail, "    #%02d:0x%x    %s \n", idx-1, (_Unwind_Word *)addr, symbol);
         if (rst <0 ) {
         	return ;
         } else {
@@ -106,13 +105,13 @@ void atrace()
     size_t max = 30;
     void* buffer[max];
 
-    size_t destLen = 2000;
+    size_t destLen = 1024;
     char destBuf[destLen];
     memset(destBuf, 0, destLen);
 
     dump_backtrace(destBuf, &destLen, buffer, capture_backtrace(buffer, max));
 
-    __android_log_print(ANDROID_LOG_INFO, "CZ_TRACXE", "CZ_TRACE:%s", destBuf);
+    __android_log_print(ANDROID_LOG_INFO, "ATRACE", "%s", destBuf);
 #endif
 }
 

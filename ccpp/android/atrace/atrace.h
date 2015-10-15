@@ -22,10 +22,10 @@
 * THE SOFTWARE.
 */
 
-#ifdef CZ_BASE_ANDROID_ATRACE
+#ifndef CZ_BASE_ANDROID_ATRACE
 #define CZ_BASE_ANDROID_ATRACE
 
-#ifdef __cplusplus 
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -47,4 +47,5 @@ extern int traceinfo(char *buf, int *len);
 #ifdef __cplusplus
 }
 #endif
+
 #endif
