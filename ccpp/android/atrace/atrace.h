@@ -37,8 +37,8 @@ extern void atrace();
 /**
 * Get Trace Info.
 *
-* @param: buf , buf to store info message
-* @param: len, a value-result param indicate length of buf
+* @param buf: buf to store info message
+* @param len: a value-result param indicate length of buf
 * @return: 0 on success and effectiv lenght in len
 */
 
